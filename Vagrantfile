@@ -33,4 +33,10 @@ Vagrant.configure("2") do |config|
   #
 
   config.vm.provision "shell", path: "bootstrap/puppet_bootstrap/centos_7_x.sh"
+
+  config.vm.provision "puppet" do |puppet|
+    puppet.manifests_path = "puppet/manifests"
+    puppet.module_path    = "puppet/modules"
+	puppet.manifest_file  = "site.pp"
+  end
 end
