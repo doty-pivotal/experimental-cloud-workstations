@@ -7,4 +7,8 @@
 
 ## Prior Art
 
+## Dependancies
+
+1. Vagrant
+
 ## Workflow
