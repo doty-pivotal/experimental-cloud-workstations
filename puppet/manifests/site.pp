@@ -3,4 +3,8 @@ node 'data.pivotal.vm' {
     ensure  => present,
     content => "Hello World!",
   }
+
+  package { 'vim-enhanced':
+    ensure => 'installed',
+  }
 }
