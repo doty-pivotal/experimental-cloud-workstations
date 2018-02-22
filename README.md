@@ -34,5 +34,6 @@ current location is temporary in this regard. Until then we'll collaborate.
 ## Prior Art
 
 1. [pivotal/workstation-setup](https://github.com/pivotal/workstation-setup/)
+1. [pivotal-sprout/sprout-wrap](https://github.com/pivotal-sprout/sprout-wrap)
 1. [Andreas' ansible scripts](https://github.com/andreasscherbaum/gpdb-ansible)
 
