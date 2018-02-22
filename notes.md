@@ -7,6 +7,8 @@
 	1. https://github.com/patrickdlee/vagrant-examples
 	1. https://github.com/jantman/puppet-archlinux-workstation
 	1. https://github.com/phinze/puppet-workstation
+	1. http://garylarizza.com/blog/2013/02/15/puppet-plus-github-equals-laptop-love/
+	1. [BOXEN](https://github.com/boxen/our-boxen/#our-boxen)
 
 ## Notes: 
 
