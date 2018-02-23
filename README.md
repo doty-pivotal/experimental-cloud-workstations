@@ -18,9 +18,11 @@ current location is temporary in this regard. Until then we'll collaborate.
 1. Read the [notes](./notes.md)
 1. `vagrant up`
 1. `vagrant ssh`
-1. `exit; vim <stuff>`
-1. `vagrant reload --provision`
-1. `vagrant destroy`
+1. `cd /vagrant/puppet`
+1. Make changes, try stuff out:
+   `sudo puppet apply --modulepath=/vagrant/puppet/modules /vagrant/puppet/manifests/site.pp` 
+1. `vagrant reload --provision` will rerun all provisioners
+1. `vagrant destroy` will through the entire experiment away
 
 ## Goals
 
