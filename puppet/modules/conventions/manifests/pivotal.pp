@@ -2,7 +2,11 @@ class conventions::pivotal {
   #   From github.com/pivotal/workstation-setup
 
   #  scripts/common/git.sh
-  ## -> git, git-author (Xin's tool for gpdb developers)
+  package { 'git':
+     ensure => installed,
+  }
+
+  ## -> git-author (Xin's tool for gpdb developers)
   ## -> git config --global core.editor /usr/bin/vim
   ## -> git config --global transfer.fsckobjects true
 
