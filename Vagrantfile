@@ -32,12 +32,6 @@ Vagrant.configure("2") do |config|
   # end
   #
 
-  config.vm.provision "shell", path: "bootstrap/puppet_bootstrap/centos_7_x.sh"
-  config.vm.provision "shell", path: "bootstrap/puppet_bootstrap/librarian_puppet.sh"
+  config.vm.provision "shell", path: "bootstrap/workstation-setup/setup.sh"
 
-  config.vm.provision "puppet" do |puppet|
-    puppet.manifests_path = "puppet/manifests"
-    puppet.module_path    = "puppet/modules"
-	puppet.manifest_file  = "site.pp"
-  end
 end
