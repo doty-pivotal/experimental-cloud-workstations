@@ -38,4 +38,6 @@ current location is temporary in this regard. Until then we'll collaborate.
 1. [pivotal/workstation-setup](https://github.com/pivotal/workstation-setup/)
 1. [pivotal-sprout/sprout-wrap](https://github.com/pivotal-sprout/sprout-wrap)
 1. [Andreas' ansible scripts](https://github.com/andreasscherbaum/gpdb-ansible)
+1. [Pivotal Seattle Beach - workstation setup in ansible](https://github.com/seattle-beach/alfalfa)
+1. [Vagrant boxes for experimenting with technologies](https://github.com/bltavares/vagrant-baseline)
 
