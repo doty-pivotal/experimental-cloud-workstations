@@ -32,6 +32,6 @@ Vagrant.configure("2") do |config|
   # end
   #
 
-  config.vm.provision "shell", path: "bootstrap/workstation-setup/setup.sh"
+  config.vm.provision "shell", inline: "/vagrant/bootstrap/workstation-setup/setup.sh"
 
 end
