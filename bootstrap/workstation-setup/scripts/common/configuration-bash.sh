@@ -8,7 +8,7 @@ rm -rf $VAGRANT_HOME/.bash_it
 git clone https://github.com/Bash-it/bash-it.git $VAGRANT_HOME/.bash_it
 cp $BOOTSTRAP_DIR/files/add_user_initials_to_git_prompt_info.bash $VAGRANT_HOME/.bash_it/custom
 cp $BOOTSTRAP_DIR/files/bobby_pivotal/bobby_pivotal.theme.bash $VAGRANT_HOME/.bash_it/themes/bobby/bobby.theme.bash
-$VAGRANT_HOME/.bash_it/install.sh
+$VAGRANT_HOME/.bash_it/install.sh -s
 source $VAGRANT_HOME/.bash_profile
 bash-it enable completion git
 bash-it enable plugin ssh

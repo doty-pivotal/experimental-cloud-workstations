@@ -18,12 +18,14 @@ git config --global alias.fixup "commit --fixup"
 git config --global alias.squash "commit --squash"
 git config --global alias.unstage "reset HEAD"
 git config --global alias.rum "rebase master@{u}"
-mkdir ~/.bash_it/aliases/enabled
-echo "#Git" >> ~/.bash_it/aliases/enabled/general.aliases.bash
-echo "alias gst='git status'" >> ~/.bash_it/aliases/enabled/general.aliases.bash
 
-#Add git duet aliases
-echo "alias dci='git duet-commit'" >> ~/.bash_it/aliases/enabled/general.aliases.bash
-echo "alias drv='git duet-revert'" >> ~/.bash_it/aliases/enabled/general.aliases.bash
-echo "alias dmg='git duet-merge'" >> ~/.bash_it/aliases/enabled/general.aliases.bash
-echo "alias drb=\"git rebase -i --exec 'git duet-commit --amend --reset-author'\"" >> ~/.bash_it/aliases/enabled/general.aliases.bash
+## For now not using git duet, skipping
+# mkdir ~/.bash_it/aliases/enabled
+# echo "#Git" >> ~/.bash_it/aliases/enabled/general.aliases.bash
+# echo "alias gst='git status'" >> ~/.bash_it/aliases/enabled/general.aliases.bash
+# 
+# #Add git duet aliases
+# echo "alias dci='git duet-commit'" >> ~/.bash_it/aliases/enabled/general.aliases.bash
+# echo "alias drv='git duet-revert'" >> ~/.bash_it/aliases/enabled/general.aliases.bash
+# echo "alias dmg='git duet-merge'" >> ~/.bash_it/aliases/enabled/general.aliases.bash
+# echo "alias drb=\"git rebase -i --exec 'git duet-commit --amend --reset-author'\"" >> ~/.bash_it/aliases/enabled/general.aliases.bash

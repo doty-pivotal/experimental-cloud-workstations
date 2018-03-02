@@ -1,13 +1,12 @@
 echo
 echo "Installing common C development tools and libraries"
-brew install ccache
-brew install ctags
-brew install cmake
-brew install cscope
-brew cask install clion
-brew install ninja
+yum install -d1 -y ccache ctags cmake cscope
 
-source ${MY_DIR}/scripts/common/download-pivotal-ide-prefs.sh
-pushd ~/workspace/pivotal_ide_prefs/cli
-./bin/ide_prefs install --ide=clion
-popd
+# Punt for now
+# brew cask install clion
+# brew install ninja
+# 
+# source ${MY_DIR}/scripts/common/download-pivotal-ide-prefs.sh
+# pushd ~/workspace/pivotal_ide_prefs/cli
+# ./bin/ide_prefs install --ide=clion
+# popd

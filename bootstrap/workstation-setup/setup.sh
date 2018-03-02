@@ -1,5 +1,7 @@
 #!/bin/bash
 
+BOOTSTRAP_DIR=/vagrant/bootstrap/workstation-setup
+VAGRANT_HOME=/home/vagrant
 # Fail immediately if any errors occur
 set -e
 
@@ -7,31 +9,37 @@ PWD="$(dirname "$0")"
 
 clear
 
-# Collected yum installs
-yum install -d1 -y coreutils vim git
+yum install -d1 -y wget git vim
 
-# Note: Homebrew needs to be set up first
+# dependancies for configuration-bash
+yum install -d1 -y coreutils gcc
 su -c "source ${PWD}/scripts/common/configuration-bash.sh" vagrant
 
-# source ${PWD}/scripts/common/git.sh
-# source ${PWD}/scripts/common/git-aliases.sh
-# source ${PWD}/scripts/common/cloud-foundry.sh
-# source ${PWD}/scripts/common/applications-common.sh
-# source ${PWD}/scripts/common/unix.sh
-# source ${PWD}/scripts/common/configuration-osx.sh
-# source ${PWD}/scripts/common/configurations.sh
-# 
-# # For each command line argument, try executing the corresponding script in opt-in/
-# for var in "$@"
-# do
-#     echo "$var"
-#     FILE=${PWD}/scripts/opt-in/${var}.sh
-#     echo "$FILE"
-#     if [ -f $FILE ]; then
-#         source ${FILE}
-#     else
-#        echo "Warning: $var does not appear to be a valid argument. File $FILE does not exist."
-#     fi
-# done
-# 
-# source ${PWD}/scripts/common/finished.sh
+# depandancies for git.sh
+yum install -d1 -y cmake curl openssl-devel
+su -c "source ${PWD}/scripts/common/git.sh" vagrant
+su -c "source ${PWD}/scripts/common/git-aliases.sh" vagrant
+mv /tmp/git-together/target/debug/git-together /usr/local/bin/
+cp $VAGRANT_HOME/files/.git-together ~/.git-together
+ 
+
+su -c "source ${PWD}/scripts/common/cloud-foundry.sh" vagrant
+su -c "source ${PWD}/scripts/common/applications-common.sh" vagrant
+
+source ${PWD}/scripts/common/unix.sh
+ 
+# For each command line argument, try executing the corresponding script in opt-in/
+for var in "c golang java docker"
+do
+    echo "$var"
+    FILE=${PWD}/scripts/opt-in/${var}.sh
+    echo "$FILE"
+    if [ -f $FILE ]; then
+        source ${FILE}
+    else
+       echo "Warning: $var does not appear to be a valid argument. File $FILE does not exist."
+    fi
+done
+
+su -c "source ${PWD}/scripts/common/configurations.sh" vagrant
+su -c "source ${PWD}/scripts/common/finished.sh" vagrant
