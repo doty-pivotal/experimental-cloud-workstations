@@ -22,6 +22,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: "/vagrant/bootstrap/workstation-setup/setup.sh"
 
-  config.vm.synced_folder "~/workspace", "/home/vagrant/workspace", owner: "vagrant", group: "vagrant"
+  # config.vm.synced_folder "~/workspace", "/home/vagrant/workspace", owner: "vagrant", group: "vagrant"
 
 end
