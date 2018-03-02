@@ -10,6 +10,9 @@
 	1. http://garylarizza.com/blog/2013/02/15/puppet-plus-github-equals-laptop-love/
 	1. [BOXEN](https://github.com/boxen/our-boxen/#our-boxen)
 1. Set up a DNS forwarder (in the give me a secure connection setup bit) that would allow for the services running on the workstation to have their name resolved on the laptop connecting to the the setup.
+1. Additional software:
+	1. https://github.com/pivotal/tmux-config
+	1. tumx, tigervnc, and a lightweight window manager
 
 ## Notes: 
 

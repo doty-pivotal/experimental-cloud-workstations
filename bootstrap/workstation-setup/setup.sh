@@ -41,5 +41,8 @@ do
     fi
 done
 
+clear
 su -c "source ${PWD}/scripts/common/configurations.sh" vagrant
+clear
+
 su -c "source ${PWD}/scripts/common/finished.sh" vagrant
