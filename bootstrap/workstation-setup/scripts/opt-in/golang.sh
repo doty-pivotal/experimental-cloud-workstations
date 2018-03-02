@@ -1,8 +1,8 @@
-echo
-echo "Installing Golang Development tools"
-
-mkdir -p ~/go/src
-brew install go
+#echo
+#echo "Installing Golang Development tools"
+#
+#mkdir -p ~/go/src
+#brew install go
 
 # Punt for now
 # brew cask install goland
