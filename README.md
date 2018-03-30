@@ -36,4 +36,4 @@ current location is temporary in this regard. Until then we'll collaborate.
 1. [Andreas' ansible scripts](https://github.com/andreasscherbaum/gpdb-ansible)
 1. [Pivotal Seattle Beach - workstation setup in ansible](https://github.com/seattle-beach/alfalfa)
 1. [Vagrant boxes for experimenting with technologies](https://github.com/bltavares/vagrant-baseline)
-
+1. [CF Garden Windows Team](https://github.com/cloudfoundry/garden-windows-ci/tree/master/workstation)
