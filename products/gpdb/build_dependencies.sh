@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+source "/vagrant/workstation-setup/scripts/common/common.sh"
+print_script_header
 
 BASE=$HOME/workspace
 pushd $BASE > /dev/null

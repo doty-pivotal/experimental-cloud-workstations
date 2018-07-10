@@ -1,34 +1,37 @@
-#!/bin/bash
+#!/usr/bin/env bash
+source "/vagrant/workstation-setup/scripts/common/common.sh"
+print_script_header
 
 BASE=$HOME/workspace
 cd $BASE
 set -ex
 
 echo "Installing Centos packages"
-yum install -y epel-release
-yum groupinstall "Development Tools"
+yum install -y -d1 epel-release
+yum groupinstall -y -d1 "Development Tools"
 
-yum install -y apr-devel
-yum install -y binutils
-yum install -y bzip2
-yum install -y compat-gcc-44
-yum install -y curl-devel
-yum install -y gcc
-yum install -y gcc-c++
-yum install -y java-devel
-yum install -y json-c-devel
-yum install -y libevent-devel
-yum install -y libxml2-devel
-yum install -y libyaml-devel
-yum install -y make
-yum install -y openssl-devel
-yum install -y perl-devel
-yum install -y perl-ExtUtils-Embed
-yum install -y python-devel
-yum install -y readline-devel
-yum install -y zlib-devel
+yum install -y -d1 \
+apr-devel \
+binutils \
+bzip2 \
+compat-gcc-44 \
+curl-devel \
+gcc \
+gcc-c++ \
+java-devel \
+json-c-devel \
+libevent-devel \
+libxml2-devel \
+libyaml-devel \
+make \
+openssl-devel \
+perl-devel \
+perl-ExtUtils-Embed \
+python-devel \
+readline-devel \
+zlib-devel \
+cmake3 \
 
-yum install -y cmake3
 # Symlink cmake3 in case the default install is cmake2
 (cmake --version | grep cmake3) || (cd /usr/bin; sudo mv cmake cmake2; sudo ln -s cmake3 cmake; cd $BASE)
 
