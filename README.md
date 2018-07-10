@@ -18,7 +18,7 @@ current location is temporary in this regard. Until then we'll collaborate.
 1. Read the [notes](./notes.md)
 1. `vagrant up`
 1. `vagrant ssh`
-1. `vagrant destroy` will through the entire experiment away
+1. `vagrant destroy` will throw the entire experiment away
 
 ## Goals
 
