@@ -1,11 +1,11 @@
 #!/bin/bash
 
-URL_43="http://shared.ci.eng.pivotal.io"
-TEAM_43="GPDB"
-TARGET_43="shared"
-TEAM_5="gpdb"
-URL_5="http://gpdb.ci.pivotalci.info"
-TARGET_5="gpdb"
+URL_43="https://prod.ci.gpdb.pivotal.io/"
+TEAM_43="main"
+TARGET_43="gpdb-prod"
+TEAM_5="main"
+URL_5="https://prod.ci.gpdb.pivotal.io/"
+TARGET_5="gpdb-prod"
 
 # Ensure Links is configured
 # If it's not, you'll need to manually log in to GitHub using Links before the script will work
