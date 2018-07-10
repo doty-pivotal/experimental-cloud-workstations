@@ -18,3 +18,4 @@
 
 Used http://garylarizza.com/blog/2013/02/01/repeatable-puppet-development-with-vagrant/ as a good starting point.
 
+Getting GCP up - https://realguess.net/2015/09/07/setup-development-environment-with-vagrant-on-google-compute-engine/
