@@ -28,7 +28,7 @@ pushd $BASE > /dev/null
 
   echo "Installing Orca"
   git clone git@github.com:greenplum-db/gporca.git
-  cd gporca > /dev/null
+  pushd gporca > /dev/null
     mkdir build
     cd build
     cmake ../
