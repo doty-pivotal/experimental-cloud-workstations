@@ -1,4 +1,19 @@
 #!/bin/bash
+echo <<EOF
+Expectations:
+
+Multiple clusters should be usable
+- Concurrently-running clusters
+- Should be able to swap between them instantly
+- All source/datadir/ports should follow the same pattern
+- Source/dir/port patterns should match GPDB version
+- Should be able to navigate segment dirs, utility mode, etc. through aliases/variables
+
+Should be easy to work with 4x vs. 5x vs. 6x code lines
+- Separate clones/directories for 5x and 6x
+- Consistently-named remotes for the other versions, for cherry-picking between versions
+- Swapping between versions should change source trees
+EOF
 
 if [[ $EUID -ne 0 ]]; then
   echo "This script must be run as root"
