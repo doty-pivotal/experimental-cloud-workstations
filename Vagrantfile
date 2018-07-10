@@ -10,17 +10,17 @@ Vagrant.configure("2") do |config|
 
   config.vm.host_name = "data.pivotal.vm"
 
-  config.vm.network "forwarded_port", guest: 5432, host: 5432
-  config.vm.network "private_network", ip: "192.168.33.10"
+  # config.vm.network "forwarded_port", guest: 5432, host: 5432
+  # config.vm.network "private_network", ip: "192.168.33.10"
 
   config.vm.provider "virtualbox" do |vb|
     # Customize the amount of memory on the VM:
     vb.memory = "8192"
-    vb.cpus = "2"
+    vb.cpus = "4"
   end
   
 
-  config.vm.provision "shell", inline: "/vagrant/bootstrap/workstation-setup/setup.sh"
+  config.vm.provision "shell", inline: "/vagrant/workstation-setup/setup.sh"
 
   # config.vm.synced_folder "~/workspace", "/home/vagrant/workspace", owner: "vagrant", group: "vagrant"
 

@@ -1,5 +1,9 @@
-echo
-echo "Setting up Git aliases..."
+#!/usr/bin/env bash
+source "/vagrant/workstation-setup/scripts/common/common.sh"
+print_script_header
+
+echo ""
+echo "-- Setting up Git aliases..."
 git config --global alias.gst git status
 git config --global alias.st status
 git config --global alias.di diff
@@ -18,14 +22,3 @@ git config --global alias.fixup "commit --fixup"
 git config --global alias.squash "commit --squash"
 git config --global alias.unstage "reset HEAD"
 git config --global alias.rum "rebase master@{u}"
-
-## For now not using git duet, skipping
-# mkdir ~/.bash_it/aliases/enabled
-# echo "#Git" >> ~/.bash_it/aliases/enabled/general.aliases.bash
-# echo "alias gst='git status'" >> ~/.bash_it/aliases/enabled/general.aliases.bash
-# 
-# #Add git duet aliases
-# echo "alias dci='git duet-commit'" >> ~/.bash_it/aliases/enabled/general.aliases.bash
-# echo "alias drv='git duet-revert'" >> ~/.bash_it/aliases/enabled/general.aliases.bash
-# echo "alias dmg='git duet-merge'" >> ~/.bash_it/aliases/enabled/general.aliases.bash
-# echo "alias drb=\"git rebase -i --exec 'git duet-commit --amend --reset-author'\"" >> ~/.bash_it/aliases/enabled/general.aliases.bash
