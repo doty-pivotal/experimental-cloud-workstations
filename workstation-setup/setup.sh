@@ -54,3 +54,9 @@ done
 
 ## TODO: setup bash prompt
 ## TODO: setup git repos and remotes
+
+echo ""
+echo "Your VM is waiting for you!"
+echo " $ vagrant ssh # should let you in"
+echo " $ cd /vagrant/products # for now"
+echo " $ ./gpdb # will kick off the GPDB'ifying of your VM"

@@ -18,13 +18,8 @@ Should be easy to work with 4x vs. 5x vs. 6x code lines
 - Swapping between versions should change source trees
 EOF
 
-if [[ $EUID -ne 0 ]]; then
-  echo "This script must be run as root"
-  exit 1
-fi
-
 echo "Configuring System"
-./gpdb/configure_system.sh
+sudo ./gpdb/configure_system.sh
 ./gpdb/generate_env_scripts.sh
 
 echo "Installing Dependencies"

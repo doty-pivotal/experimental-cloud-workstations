@@ -24,4 +24,7 @@ Vagrant.configure("2") do |config|
 
   # config.vm.synced_folder "~/workspace", "/home/vagrant/workspace", owner: "vagrant", group: "vagrant"
 
+  # This should work well with the Pivotal practice of loading keys from thumbdrives.
+  config.ssh.forward_agent = true
+
 end
