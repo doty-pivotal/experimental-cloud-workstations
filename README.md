@@ -1,5 +1,5 @@
 # experimental-cloud-workstations
-[Experimental] Automate the creation of a workstation in the cloud
+[Experimental] Automate the creation of a linux workstation.
 
 TODO: Finish the scaffolding, and then move into a Pivotal owned repo. The
 current location is temporary in this regard. Until then we'll collaborate.
@@ -11,6 +11,7 @@ current location is temporary in this regard. Until then we'll collaborate.
 ## Dependancies
 
 1. Vagrant
+1. Ansible
 
 ## Workflow
 
@@ -37,3 +38,5 @@ current location is temporary in this regard. Until then we'll collaborate.
 1. [Pivotal Seattle Beach - workstation setup in ansible](https://github.com/seattle-beach/alfalfa)
 1. [Vagrant boxes for experimenting with technologies](https://github.com/bltavares/vagrant-baseline)
 1. [CF Garden Windows Team](https://github.com/cloudfoundry/garden-windows-ci/tree/master/workstation)
+
+## Keep at end for ease of tail'ing this file

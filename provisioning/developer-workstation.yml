@@ -1,0 +1,4 @@
+---
+- hosts: workstations
+  roles:
+    - gpdb-build-req

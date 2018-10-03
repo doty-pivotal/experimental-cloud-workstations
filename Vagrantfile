@@ -8,7 +8,8 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "bento/centos-7.4"
 
-  config.vm.host_name = "data.pivotal.vm"
+  config.vm.define "workstation"
+  config.vm.host_name = "workstation.gpdb.vm"
 
   # config.vm.network "forwarded_port", guest: 5432, host: 5432
   # config.vm.network "private_network", ip: "192.168.33.10"
@@ -18,13 +19,15 @@ Vagrant.configure("2") do |config|
     vb.memory = "8192"
     vb.cpus = "6"
   end
-  
 
-  config.vm.provision "shell", inline: "/vagrant/workstation-setup/setup.sh"
-
-  # config.vm.synced_folder "~/workspace", "/home/vagrant/workspace", owner: "vagrant", group: "vagrant"
-
-  # This should work well with the Pivotal practice of loading keys from thumbdrives.
   config.ssh.forward_agent = true
+
+  config.vm.provision "ansible" do |ansible|
+    # ansible.verbose = "v"
+    ansible.playbook = "provisioning/site.yml"
+    ansible.groups = {
+      "workstations" => ["workstation"],
+    }
+  end
 
 end
