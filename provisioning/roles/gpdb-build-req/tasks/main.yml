@@ -1,5 +1,91 @@
-- name: ensure ntpd is at the latest version
-  yum: pkg=ntp state=latest
-  notify:
-  - restart ntpd
+---
+- name: enable the epel-release
+  yum:
+    name: epel-release
+    state: latest
   become: yes
+
+- name: install the 'Development tools' package group
+  yum:
+    name: "@Development tools"
+    state: present
+  become: yes
+
+- name: install packages necessary to build GPDB
+  yum:
+    name: "{{ packages }}"
+  become: yes
+  vars:
+    packages:
+    - apr-devel
+    - binutils
+    - bzip2
+    - compat-gcc-44
+    - curl-devel
+    - gcc
+    - gcc-c++
+    - java-devel
+    - json-c-devel
+    - libevent-devel
+    - libxml2-devel
+    - libyaml-devel
+    - make
+    - openssl-devel
+    - perl-devel
+    - perl-ExtUtils-Embed
+    - python-devel
+    - readline-devel
+    - zlib-devel
+    - cmake3
+
+# # Symlink cmake3 in case the default install is cmake2
+# (cmake --version | grep cmake3) || (cd /usr/bin; sudo mv cmake cmake2; sudo ln -s cmake3 cmake; cd $BASE)
+#
+# echo "Installing Python packages"
+# # pip should come with python by default
+# # TODO: determine whether pip is installed, install it if not present
+# pip install lockfile
+# pip install paramiko
+# pip install psutil
+# pip install setuptools
+#
+# # Make configure --with-perl work
+# ln -s /usr/share/perl5/vendor_perl/ExtUtils/xsubpp /usr/share/perl5/ExtUtils/xsubpp
+#
+# BASE=$HOME/workspace
+# pushd $BASE > /dev/null
+#   set -ex
+#
+#   echo "Installing GPOS"
+#   git clone git@github.com:greenplum-db/gpos.git
+#   pushd gpos > /dev/null
+#     mkdir build
+#     cd build
+#     cmake ../
+#     make
+#     sudo make install
+#   popd
+#
+#   echo "Installing GP-Xerces"
+#   git clone git@github.com:greenplum-db/gp-xerces.git
+#   pushd gp-xerces > /dev/null
+#     mkdir build
+#     cd build
+#     ../configure --prefix=/usr/local
+#     make
+#     sudo make install
+#   popd
+#
+#   echo "Installing Orca"
+#   git clone git@github.com:greenplum-db/gporca.git
+#   pushd gporca > /dev/null
+#     mkdir build
+#     cd build
+#     cmake ../
+#     make
+#     sudo make install
+#   popd > /dev/null
+# popd > /dev/null
+
+# TODO: re-factor out ~/workspace magic string
+# TODO: Remove CentOS assumption with `when: ansible_os_platform|lower == 'redhat'` like logic
