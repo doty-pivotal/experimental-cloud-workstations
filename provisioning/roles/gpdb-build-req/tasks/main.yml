@@ -38,26 +38,50 @@
     - zlib-devel
     - cmake3
 
-# # Symlink cmake3 in case the default install is cmake2
-# (cmake --version | grep cmake3) || (cd /usr/bin; sudo mv cmake cmake2; sudo ln -s cmake3 cmake; cd $BASE)
-#
-# echo "Installing Python packages"
-# # pip should come with python by default
-# # TODO: determine whether pip is installed, install it if not present
-# pip install lockfile
-# pip install paramiko
-# pip install psutil
-# pip install setuptools
-#
-# # Make configure --with-perl work
-# ln -s /usr/share/perl5/vendor_perl/ExtUtils/xsubpp /usr/share/perl5/ExtUtils/xsubpp
-#
-# BASE=$HOME/workspace
-# pushd $BASE > /dev/null
-#   set -ex
-#
-#   echo "Installing GPOS"
-#   git clone git@github.com:greenplum-db/gpos.git
+# TODO: make this idempotent
+- name: Symlink cmake3 in case the default install is cmake2
+  command: /bin/bash -c "(cmake --version | grep cmake3) || (cd /usr/bin; sudo mv cmake cmake2; sudo ln -s cmake3 cmake)"
+
+- name: install pip
+  yum:
+    name: python-pip
+  become: yes
+
+# TODO: make thi idempotent
+- name: Upgrade pip to latest version
+  command: /bin/bash -c "pip install --upgrade pip"
+  become: yes
+
+# TODO: use the information in GPDB to for this requirement - changes to GPDB may be required.
+- name: install necessary python dependancies for gpdb
+  pip:
+    name: "{{ packages }}"
+  become: yes
+  vars:
+    packages:
+    - lockfile
+    - paramiko
+    - psutil
+    - setuptools
+
+# TODO: Justify why this exists
+- name: make configure --with-perl work
+  file:
+    src: /usr/share/perl5/vendor_perl/ExtUtils/xsubpp
+    dest: /usr/share/perl5/ExtUtils/xsubpp
+    state: link
+  become: yes
+
+- name: create Pivotal's conventional working directory, "workspace"
+  file:
+    path: ~/workspace
+    state: directory
+    mode: 0755
+
+- name: Installing GPOS
+  git:
+    repo: 'https://github.com/greenplum-db/gpos.git'
+    dest: ~/workspace/
 #   pushd gpos > /dev/null
 #     mkdir build
 #     cd build
@@ -65,9 +89,11 @@
 #     make
 #     sudo make install
 #   popd
-#
-#   echo "Installing GP-Xerces"
-#   git clone git@github.com:greenplum-db/gp-xerces.git
+
+- name: Installing GP-Xerces
+  git:
+    repo: 'https://github.com/greenplum-db/gp-xerces.git'
+    dest: ~/workspace/
 #   pushd gp-xerces > /dev/null
 #     mkdir build
 #     cd build
@@ -75,9 +101,11 @@
 #     make
 #     sudo make install
 #   popd
-#
-#   echo "Installing Orca"
-#   git clone git@github.com:greenplum-db/gporca.git
+
+- name: Installing Orca
+  git:
+    repo: 'https://github.com/greenplum-db/gporca.git'
+    dest: ~/workspace/
 #   pushd gporca > /dev/null
 #     mkdir build
 #     cd build
@@ -89,3 +117,7 @@
 
 # TODO: re-factor out ~/workspace magic string
 # TODO: Remove CentOS assumption with `when: ansible_os_platform|lower == 'redhat'` like logic
+# TODO: configure git repos iff public for https pull and ssh push
+#       + https://devops.stackexchange.com/a/2979
+#       + https://github.com/ansible/ansible/issues/27493#issuecomment-423833326
+# TODO: Do we need to accept the ssh key ident for github?
