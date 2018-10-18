@@ -28,17 +28,19 @@ Thinking about roles:
     ├── developer-workstation.yml
     ├── gpdb-node.yml
     └── roles
-        ├── gpdb-build-req
-        ├── gpdb-workflow < can have scripts to switch cleanly between versions
+        ├── gpdb-build-deps < install/build the deps
+        ├── gpdb-build      < build the thing
+        ├── gpdb-workflow   < make working with the thing easier
         ├── ...
-        ├── gpupgrade-build-req
+        ├── gpupgrade-build-deps
+        ├── gpupgrade-build
         ├── gpupgrade-workflow < can set languages used in these projects for consumption downstream?
         ├── ...
-        ├── team-workflow # < this can have collaboration tools, tmux, mosh, git author, ...
         ├── editor # < can this build off of list of languages set as vars from above ??
+        ├── team-workflow # < this can have collaboration tools, tmux, mosh, git author, ...
         ├── desktop
         ├── ...
-        ├── gpdb-runtime < nodes shouldn't need all the cruft needed to develop GPDB
+        ├── gpdb-runtime-deps < nodes shouldn't need all the cruft needed to develop GPDB
         └── ...
  ```
 

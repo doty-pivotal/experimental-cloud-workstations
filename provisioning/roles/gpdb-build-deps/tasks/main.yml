@@ -13,32 +13,31 @@
 
 - name: install packages necessary to build GPDB
   yum:
-    name: "{{ packages }}"
+    name:
+      - apr-devel
+      - binutils
+      - bzip2
+      - compat-gcc-44
+      - curl-devel
+      - gcc
+      - gcc-c++
+      - java-devel
+      - json-c-devel
+      - libevent-devel
+      - libxml2-devel
+      - libyaml-devel
+      - make
+      - openssl-devel
+      - perl-devel
+      - perl-ExtUtils-Embed
+      - python-devel
+      - readline-devel
+      - zlib-devel
+      - cmake3
+    state: present
   become: yes
-  vars:
-    packages:
-    - apr-devel
-    - binutils
-    - bzip2
-    - compat-gcc-44
-    - curl-devel
-    - gcc
-    - gcc-c++
-    - java-devel
-    - json-c-devel
-    - libevent-devel
-    - libxml2-devel
-    - libyaml-devel
-    - make
-    - openssl-devel
-    - perl-devel
-    - perl-ExtUtils-Embed
-    - python-devel
-    - readline-devel
-    - zlib-devel
-    - cmake3
 
-# TODO: make this idempotent
+# TODO: make this idempotent - subscribe to cmake install?
 - name: Symlink cmake3 in case the default install is cmake2
   command: /bin/bash -c "(cmake --version | grep cmake3) || (cd /usr/bin; sudo mv cmake cmake2; sudo ln -s cmake3 cmake)"
 
@@ -78,42 +77,11 @@
     state: directory
     mode: 0755
 
-- name: Installing GPOS
-  git:
-    repo: 'https://github.com/greenplum-db/gpos.git'
-    dest: ~/workspace/
-#   pushd gpos > /dev/null
-#     mkdir build
-#     cd build
-#     cmake ../
-#     make
-#     sudo make install
-#   popd
+- include_tasks: build_gpos.yml
 
-- name: Installing GP-Xerces
-  git:
-    repo: 'https://github.com/greenplum-db/gp-xerces.git'
-    dest: ~/workspace/
-#   pushd gp-xerces > /dev/null
-#     mkdir build
-#     cd build
-#     ../configure --prefix=/usr/local
-#     make
-#     sudo make install
-#   popd
+- include_tasks: build_gp-xerces.yml
 
-- name: Installing Orca
-  git:
-    repo: 'https://github.com/greenplum-db/gporca.git'
-    dest: ~/workspace/
-#   pushd gporca > /dev/null
-#     mkdir build
-#     cd build
-#     cmake ../
-#     make
-#     sudo make install
-#   popd > /dev/null
-# popd > /dev/null
+- include_tasks: build_gporca.yml
 
 # TODO: re-factor out ~/workspace magic string
 # TODO: Remove CentOS assumption with `when: ansible_os_platform|lower == 'redhat'` like logic
@@ -121,3 +89,4 @@
 #       + https://devops.stackexchange.com/a/2979
 #       + https://github.com/ansible/ansible/issues/27493#issuecomment-423833326
 # TODO: Do we need to accept the ssh key ident for github?
+# TODO: For pulling private repo's setup keyforwarding from host.

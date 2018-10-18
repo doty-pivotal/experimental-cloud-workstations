@@ -1,0 +1,33 @@
+---
+- name: get gporca source
+  git:
+    repo: 'https://github.com/greenplum-db/gporca.git'
+    dest: ~/workspace/gporca
+  register: gporca_source
+
+- name: make gporca build dir
+  file:
+    path: ~/workspace/gporca/build
+    state: directory
+    mode: 0755
+
+- name: configure gporca
+  command: "cmake ../"
+  args:
+    chdir: ~/workspace/gporca/build
+  when: gporca_source is changed
+  register: gporca_configure
+
+- name: make gporca
+  command: "make"
+  args:
+    chdir: ~/workspace/gporca/build
+  when: gporca_source is changed
+  register: gporca_build
+
+- name: make install gporca
+  command: "sudo make install"
+  args:
+    chdir: ~/workspace/gporca/build
+  when: gporca_build is changed
+

@@ -1,0 +1,34 @@
+---
+- name: get gpos source
+  git:
+    repo: 'https://github.com/greenplum-db/gpos.git'
+    dest: ~/workspace/gpos
+  register: gpos_source
+
+- name: make gpos build dir
+  file:
+    path: ~/workspace/gpos/build
+    state: directory
+    mode: 0755
+
+- name: configure gpos
+  command: "cmake ../"
+  args:
+    chdir: ~/workspace/gpos/build
+  when: gpos_source is changed
+  register: gpos_configure
+
+- name: make gpos
+  command: "make"
+  args:
+    chdir: ~/workspace/gpos/build
+  when: gpos_source is changed
+  register: gpos_build
+
+# TODO: seems like we should become: yes instead of sudo,
+# but that would require not relying on ~ in the path
+- name: make install gpos
+  command: "sudo make install"
+  arg:
+    chdir: ~/workspace/gpos/build
+  when: gpos_build is changed

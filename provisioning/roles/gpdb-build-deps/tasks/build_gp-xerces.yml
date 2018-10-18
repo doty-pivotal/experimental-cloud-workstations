@@ -1,0 +1,33 @@
+---
+- name: get gp-xerces source
+  git:
+    repo: 'https://github.com/greenplum-db/gp-xerces.git'
+    dest: ~/workspace/gp-xerces
+  register: xerces_source
+
+- name: make gp-xerces build dir
+  file:
+    path: ~/workspace/gp-xerces/build
+    state: directory
+    mode: 0755
+
+- name: configure gp-xerces
+  command: "../configure --prefix=/usr/local"
+  args:
+    chdir: ~/workspace/gp-xerces/build
+  when: xerces_source is changed
+  register: xerces_configure
+
+- name: make gp-xerces
+  command: "make"
+  args:
+    chdir: ~/workspace/gp-xerces/build
+  when: xerces_source is changed
+  register: xerces_build
+
+- name: make install gp-xerces
+  command: "sudo make install"
+  args:
+    chdir: ~/workspace/gp-xerces/build
+  when: xerces_build is changed
+
