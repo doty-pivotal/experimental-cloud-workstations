@@ -2,3 +2,4 @@
 - hosts: workstations
   roles:
     - gpdb-build-deps
+    - gpdb-build

@@ -12,6 +12,7 @@ current location is temporary in this regard. Until then we'll collaborate.
 
 1. Vagrant
 1. Ansible
+1. TEMP: the gcc compiler tar from `s3://toolchain-snowflakes/gcc-6.2.0-rhel7_x86_64.tar.gz` in `~/Downloads`
 
 ## Workflow
 

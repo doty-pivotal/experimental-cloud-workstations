@@ -11,12 +11,14 @@
     state: present
   become: yes
 
+# TODO: break this apart and put more packages closer to the component that uses them.
 - name: install packages necessary to build GPDB
   yum:
     name:
       - apr-devel
       - binutils
       - bzip2
+      - bzip2-devel
       - compat-gcc-44
       - curl-devel
       - gcc
@@ -78,10 +80,21 @@
     mode: 0755
 
 - include_tasks: build_gpos.yml
-
 - include_tasks: build_gp-xerces.yml
-
 - include_tasks: build_gporca.yml
+- include_tasks: build_gcc6.2.0.yml
+
+# Why: https://github.com/greenplum-db/gporca#common-issues
+- name: add gpdb dependancies to our search path while we are on a RHEL derivative
+  copy:
+    content: "/usr/local/lib"
+    dest: /etc/ld.so.conf.d/gpdb-build-reqs.conf
+  become: yes
+
+# TODO: make this only fire on above file change
+- name: update ldconfig cache
+  command: /usr/sbin/ldconfig
+  become: yes
 
 # TODO: re-factor out ~/workspace magic string
 # TODO: Remove CentOS assumption with `when: ansible_os_platform|lower == 'redhat'` like logic

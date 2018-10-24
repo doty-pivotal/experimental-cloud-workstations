@@ -29,6 +29,6 @@
 # but that would require not relying on ~ in the path
 - name: make install gpos
   command: "sudo make install"
-  arg:
+  args:
     chdir: ~/workspace/gpos/build
   when: gpos_build is changed
