@@ -1,33 +1,62 @@
-## Future things:
-
-1. Automate building of images?
-	1. Stuff Gary says suggests [VeeWee](https://github.com/jedi4ever/veewee)
-	1. Packer would make sense
-1. Some other examples of Puppet + Vagrant
-	1. https://github.com/patrickdlee/vagrant-examples
-	1. https://github.com/jantman/puppet-archlinux-workstation
-	1. https://github.com/phinze/puppet-workstation
-	1. http://garylarizza.com/blog/2013/02/15/puppet-plus-github-equals-laptop-love/
-	1. [BOXEN](https://github.com/boxen/our-boxen/#our-boxen)
-1. Set up a DNS forwarder (in the give me a secure connection setup bit) that would allow for the services running on the workstation to have their name resolved on the laptop connecting to the the setup.
-1. Additional software:
-	1. https://github.com/pivotal/tmux-config
-	1. tumx, tigervnc, and a lightweight window manager
-
-## Notes: 
-
-Used http://garylarizza.com/blog/2013/02/01/repeatable-puppet-development-with-vagrant/ as a good starting point.
-
-Getting GCP up - https://realguess.net/2015/09/07/setup-development-environment-with-vagrant-on-google-compute-engine/
-
-
 ## Scratch
 
 There are some competing concerns, but lets try this pattern on:
 1. workstation setup
 2. product setup
 3. team setup
-4. individuals setup
+4. Individuals setup
 
 This way by combining choices in 1-4 you get your workstation.  There may be
-some conflicts, but I think I want to see this play out, and then figure out how to consolidate and refactor
+some conflicts, but I think I want to see this play out, and then figure out
+how to consolidate and refactor
+
+
+## Ansible Thoughts:
+
++ [Ansible Best Practices](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html)
++ [Ansible Examples](https://github.com/ansible/ansible-examples)
++ [Ansible and Vagrant](https://www.vagrantup.com/docs/provisioning/ansible_intro.html)
+
+Thinking about roles:
+
+```
+.
+├── README.md
+├── Vagrantfile
+└── provisioning
+    ├── site.yml
+    ├── developer-workstation.yml
+    ├── gpdb-node.yml
+    └── roles
+        ├── gpdb-build-deps < install/build the deps
+        ├── gpdb-build      < build the thing
+        ├── gpdb-workflow   < make working with the thing easier
+        ├── ...
+        ├── gpupgrade-build-deps
+        ├── gpupgrade-build
+        ├── gpupgrade-workflow < can set languages used in these projects for consumption downstream?
+        ├── ...
+        ├── editor # < can this build off of list of languages set as vars from above ??
+        ├── team-workflow # < this can have collaboration tools, tmux, mosh, git author, ...
+        ├── desktop
+        ├── ...
+        ├── gpdb-runtime-deps < nodes shouldn't need all the cruft needed to develop GPDB
+        └── ...
+ ```
+
+Next steps:
+1. from blanck VM, build GPDB
+1. from build GPDB VM add developer workflow tools
+1. from workstation build / manage a cluster.
+1. do above in GCP
+
+One thing that would be nice is if there was a way from the build VM to push
+the latest changes to the cluster.  Perhaps the install prefix on the build VM
+could be an NFS that all the other nodes mount (Morgan Stanley anyone?).  Or
+perhaps a job that runs to sync the directories? Or an ansible
+[solution](https://stackoverflow.com/questions/25505146/how-to-copy-files-between-two-nodes-using-ansible)?
+
+
+Also, when working on VM's on a laptop, can see wanting to control the whole
+thing from the outside.  If my workstation is in GCP, I kind of want the tools
+on it to be able to spin out the dev cluster and connect to it.

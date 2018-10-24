@@ -1,0 +1,29 @@
+---
+# TODO: break this apart and put more packages closer to the component that uses them.
+- name: install packages necessary to build GPDB
+  yum:
+    name:
+      - ninja-build
+    state: present
+  become: yes
+
+- name: get gporca source
+  git:
+    repo: 'https://github.com/greenplum-db/gporca.git'
+    dest: ~/workspace/gporca
+  register: gporca_source
+
+- name: make gporca
+  command: "cmake -GNinja -H. -Bbuild"
+  args:
+    chdir: ~/workspace/gporca
+  when: gporca_source is changed
+  register: gporca_build
+
+# TODO: don't use sudo
+# TODO: ninja shouldn't install bin as ninja-build
+- name: make install gporca
+  command: "sudo ninja-build install -C build"
+  args:
+    chdir: ~/workspace/gporca
+  when: gporca_build is changed

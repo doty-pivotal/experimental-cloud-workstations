@@ -1,5 +1,5 @@
 # experimental-cloud-workstations
-[Experimental] Automate the creation of a workstation in the cloud
+[Experimental] Automate the creation of a linux workstation.
 
 TODO: Finish the scaffolding, and then move into a Pivotal owned repo. The
 current location is temporary in this regard. Until then we'll collaborate.
@@ -11,6 +11,8 @@ current location is temporary in this regard. Until then we'll collaborate.
 ## Dependancies
 
 1. Vagrant
+1. Ansible
+1. TEMP: the gcc compiler tar from `s3://toolchain-snowflakes/gcc-6.2.0-rhel7_x86_64.tar.gz` in `~/Downloads`
 
 ## Workflow
 
@@ -38,3 +40,5 @@ current location is temporary in this regard. Until then we'll collaborate.
 1. [Vagrant boxes for experimenting with technologies](https://github.com/bltavares/vagrant-baseline)
 1. [CF Garden Windows Team](https://github.com/cloudfoundry/garden-windows-ci/tree/master/workstation)
 1. [Jason V's](https://github.com/vigiljt/ansible-role-workstation-configuration)
+
+## Keep at end for ease of tail'ing this file

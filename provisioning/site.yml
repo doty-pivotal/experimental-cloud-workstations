@@ -1,0 +1,3 @@
+---
+- import_playbook: developer-workstation.yml
+# - import_playbook: gpdb-node.yml

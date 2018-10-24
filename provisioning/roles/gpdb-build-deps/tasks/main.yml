@@ -1,0 +1,105 @@
+---
+- name: enable the epel-release
+  yum:
+    name: epel-release
+    state: latest
+  become: yes
+
+- name: install the 'Development tools' package group
+  yum:
+    name: "@Development tools"
+    state: present
+  become: yes
+
+# TODO: break this apart and put more packages closer to the component that uses them.
+- name: install packages necessary to build GPDB
+  yum:
+    name:
+      - apr-devel
+      - binutils
+      - bzip2
+      - bzip2-devel
+      - compat-gcc-44
+      - curl-devel
+      - gcc
+      - gcc-c++
+      - java-devel
+      - json-c-devel
+      - libevent-devel
+      - libxml2-devel
+      - libyaml-devel
+      - make
+      - openssl-devel
+      - perl-devel
+      - perl-ExtUtils-Embed
+      - python-devel
+      - readline-devel
+      - zlib-devel
+      - cmake3
+    state: present
+  become: yes
+
+# TODO: make this idempotent - subscribe to cmake install?
+- name: Symlink cmake3 in case the default install is cmake2
+  command: /bin/bash -c "(cmake --version | grep cmake3) || (cd /usr/bin; sudo mv cmake cmake2; sudo ln -s cmake3 cmake)"
+
+- name: install pip
+  yum:
+    name: python-pip
+  become: yes
+
+# TODO: make thi idempotent
+- name: Upgrade pip to latest version
+  command: /bin/bash -c "pip install --upgrade pip"
+  become: yes
+
+# TODO: use the information in GPDB to for this requirement - changes to GPDB may be required.
+- name: install necessary python dependancies for gpdb
+  pip:
+    name: "{{ packages }}"
+  become: yes
+  vars:
+    packages:
+    - lockfile
+    - paramiko
+    - psutil
+    - setuptools
+
+# TODO: Justify why this exists
+- name: make configure --with-perl work
+  file:
+    src: /usr/share/perl5/vendor_perl/ExtUtils/xsubpp
+    dest: /usr/share/perl5/ExtUtils/xsubpp
+    state: link
+  become: yes
+
+- name: create Pivotal's conventional working directory, "workspace"
+  file:
+    path: ~/workspace
+    state: directory
+    mode: 0755
+
+- include_tasks: build_gpos.yml
+- include_tasks: build_gp-xerces.yml
+- include_tasks: build_gporca.yml
+- include_tasks: build_gcc6.2.0.yml
+
+# Why: https://github.com/greenplum-db/gporca#common-issues
+- name: add gpdb dependancies to our search path while we are on a RHEL derivative
+  copy:
+    content: "/usr/local/lib"
+    dest: /etc/ld.so.conf.d/gpdb-build-reqs.conf
+  become: yes
+
+# TODO: make this only fire on above file change
+- name: update ldconfig cache
+  command: /usr/sbin/ldconfig
+  become: yes
+
+# TODO: re-factor out ~/workspace magic string
+# TODO: Remove CentOS assumption with `when: ansible_os_platform|lower == 'redhat'` like logic
+# TODO: configure git repos iff public for https pull and ssh push
+#       + https://devops.stackexchange.com/a/2979
+#       + https://github.com/ansible/ansible/issues/27493#issuecomment-423833326
+# TODO: Do we need to accept the ssh key ident for github?
+# TODO: For pulling private repo's setup keyforwarding from host.
