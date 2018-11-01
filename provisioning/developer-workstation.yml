@@ -3,3 +3,4 @@
   roles:
     - gpdb-build-deps
     - gpdb-build
+    - gpdb-workflow

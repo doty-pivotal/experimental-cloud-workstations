@@ -18,25 +18,7 @@
   command: "./configure --with-perl --with-python --with-libxml --with-gssapi --prefix=/6/"
   args:
     chdir: ~/workspace/gpdb/
-  #when: gpdb_source is changed
+  when: gpdb_source is changed
   register: gpdb_configure
 
 # TODO: I wan't to be able to build, but I don't know if its necessary
-# to actually do the build before we start working... Delay decision
-# - debug:
-#     msg: "Need gcc version to match what we use in the pipeline"
-#
-# # TODO: can we do this without shell?
-# - name: "make GPDB"
-#   shell: "source /opt/gcc_env.sh && make -j4"
-#   args:
-#     chdir: ~/workspace/gpdb/
-#   # when: gpdb_source is changed
-#   register: gpdb_build
-#
-# - name: "build GPDB"
-#   shell: "source /opt/gcc_env.sh && make install gpdb"
-#   args:
-#     chdir: ~/workspace/gpdb/
-#   # when: gpdb_build is changed
-
