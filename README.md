@@ -31,7 +31,7 @@ current location is temporary in this regard. Until then we'll collaborate.
    should be part of the GDPB specific setup instructions, makefiles, scripts,
    and/or secret incantations.
 
-## Prior Art
+## Related Efforts
 
 1. [pivotal/workstation-setup](https://github.com/pivotal/workstation-setup/)
 1. [pivotal-sprout/sprout-wrap](https://github.com/pivotal-sprout/sprout-wrap)
