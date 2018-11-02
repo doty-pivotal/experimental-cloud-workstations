@@ -97,7 +97,8 @@
   copy: src=security_limits.conf dest=/etc/security/limits.d/95-gpdb.conf
   notify:
     - restart system
-    - waiting for server to come back after reboot
+    # TODO: this isn't playing well with Vagrant
+    # - waiting for server to come back after reboot
 
 # FIXME: XFS options
 # FIXME: I/O scheduler

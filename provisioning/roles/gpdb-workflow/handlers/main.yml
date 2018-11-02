@@ -6,15 +6,13 @@
   poll: 0
   ignore_errors: true
 
-
-- name: waiting for server to come back after reboot
-  local_action: wait_for host={{ inventory_hostname }} port=2222 state=started delay=20 timeout=90
-  become: no
-
+# TODO: This isn't working well with VAGRANT
+# - name: waiting for server to come back after reboot
+#   local_action: wait_for host={{ ansible_default_ipv4.address }} port=22  delay=20 timeout=90 state=started
+#   become: no
 
 - name: reload sysctl
   shell: /sbin/sysctl -p /etc/sysctl.conf
-
 
 - name: reload sshd
   service:
