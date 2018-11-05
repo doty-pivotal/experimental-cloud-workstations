@@ -1,0 +1,7 @@
+---
+- name: Install editors
+  become: yes
+  yum:
+    name:
+      - vim
+    state: present
