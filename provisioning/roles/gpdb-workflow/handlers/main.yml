@@ -1,6 +1,7 @@
 ---
 
 - name: restart system
+  become: yes
   shell: ( /bin/sleep 5 ; /sbin/shutdown -r now "Ansible updates triggered" ) &
   async: 30
   poll: 0
@@ -12,9 +13,11 @@
 #   become: no
 
 - name: reload sysctl
+  become: yes
   shell: /sbin/sysctl -p /etc/sysctl.conf
 
 - name: reload sshd
+  become: yes
   service:
     name: sshd
     state: reloaded

@@ -21,4 +21,10 @@
   when: gpdb_source is changed
   register: gpdb_configure
 
-# TODO: I wan't to be able to build, but I don't know if its necessary
+- name: "make GPDB"
+  # TODO: pick the parallelizm based on number of cores available
+  command: "make -j5"
+  args:
+    chdir: ~/workspace/gpdb/
+  when: gpdb_source is changed
+  register: gpdb_configure

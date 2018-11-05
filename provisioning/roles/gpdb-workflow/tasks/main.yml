@@ -44,7 +44,7 @@
     - waiting for server to come back after reboot
 
 
-# TODO: Pulled from Andrea's GPDB4 stuff. Evaluate values after unblocked.
+# TODO: Pulled from GPDB 5 docs. Evaluate values after unblocked.
 - name: Modify /etc/sysctl.conf
   become: yes
   lineinfile:
@@ -56,7 +56,7 @@
     - { regexp: '^kernel.shmmax', line: 'kernel.shmmax = 500000000', state: present }
     - { regexp: '^kernel.shmmni', line: 'kernel.shmmni = 4096', state: present }
     - { regexp: '^kernel.shmall', line: 'kernel.shmall = 4000000000', state: present }
-    - { regexp: '^kernel.sem', line: 'kernel.sem = 250 512000 100 2048', state: present }
+    - { regexp: '^kernel.sem', line: 'kernel.sem = 500 1024000 200 4096', state: present }
     - { regexp: '^kernel.sysrq', line: 'kernel.sysrq = 1', state: present }
     - { regexp: '^kernel.core_uses_pid', line: 'kernel.core_uses_pid = 1', state: present }
     - { regexp: '^kernel.msgmnb', line: 'kernel.msgmnb = 65536', state: present }
@@ -73,6 +73,13 @@
     - { regexp: '^net.core.rmem_max', line: 'net.core.rmem_max = 2097152', state: present }
     - { regexp: '^net.core.wmem_max', line: 'net.core.wmem_max = 2097152', state: present }
     - { regexp: '^vm.overcommit_memory', line: 'vm.overcommit_memory = 2', state: present }
+    - { regexp: '^vm.swappiness', line: 'vm.swappiness = 10', state: present }
+    - { regexp: '^vm.dirty_expire_centisecs', line: 'vm.dirty_expire_centisecs = 500', state: present }
+    - { regexp: '^vm.dirty_writeback_centisecs', line: 'vm.dirty_writeback_centisecs = 100', state: present }
+    - { regexp: '^vm.dirty_background_ratio', line: 'vm.dirty_background_ratio = 0', state: present }
+    - { regexp: '^vm.dirty_ratio', line: 'vm.dirty_ratio = 0', state: present }
+    - { regexp: '^vm.dirty_background_bytes', line: 'vm.dirty_background_bytes = 1610612736', state: present }
+    - { regexp: '^vm.dirty_bytes', line: 'vm.dirty_bytes = 4294967296', state: present }
   notify:
     - reload sysctl
 
