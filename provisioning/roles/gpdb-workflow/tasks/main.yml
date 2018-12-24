@@ -41,7 +41,8 @@
   selinux: state=disabled
   notify:
     - restart system
-    - waiting for server to come back after reboot
+    # TODO: this isn't playing well with Vagrant
+    # - waiting for server to come back after reboot
 
 
 # TODO: Pulled from GPDB 5 docs. Evaluate values after unblocked.
